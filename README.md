@@ -52,7 +52,7 @@ with open('path/to/config.json', 'w') as f:
     json.dump(args, f)
 ```
 
-Also if you know the url to the trip file process it this way:
+Also if you know the url to the trip file, process it this way:
 
 ```python
 from src.trip import Trip

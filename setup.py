@@ -5,10 +5,10 @@ with open("./README.md", "r") as f:
 
 setup(
     name='bike-trips',
-    version='0.1.0',
+    version='1.0.0',
     description='download and preprocess popular bike sharing trip data',
     packages=find_packages(),
     author='P. Samuel Njiki',
-    license='',
+    license='MIT License',
     long_description=long_description,
     long_description_content_type="text/markdown")
