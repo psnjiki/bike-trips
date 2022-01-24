@@ -13,7 +13,7 @@ class Trip():
     def __init__(self, data_dir):
         self.data_dir = data_dir
     
-    def get(self, url):
+    def download(self, url):
         """
         get bixi trip data from internet. 
         return the folder where data is saved.
@@ -60,7 +60,7 @@ class Trip():
 
     def run_bixi(self, url):
         #download/unzip data from the web
-        save_dir = self.get(url)
+        save_dir = self.download(url)
         if save_dir is None:
             return None # process only new files
         
@@ -109,9 +109,7 @@ class Trip():
             left_on='end_station_code',
             right_on='code', 
             suffixes=('', '_end')).drop('code', axis=1) #.drop('emplacement_pk_end', axis=1)
-        
-        logger.info('1 - df shape {}'.format(df.shape))
-        
+                
         # add datetime elements
         self.break_datetime(df, column='start_date')
         self.break_datetime(df, column='end_date')
@@ -123,7 +121,7 @@ class Trip():
 
         df = df.merge(calendar, left_on='start_dt', right_on='dt', how='left').drop('dt', axis=1)
         
-        logger.info('2 - df shape {}'.format(df.shape))
+        logger.info('df shape {}'.format(df.shape))
         # write processed df to file
         df.to_csv(os.path.join(save_dir, 'trip.csv'), index=False)
         

@@ -6,7 +6,7 @@ with open("./README.md", "r") as f:
 setup(
     name='bike-trips',
     version='1.0.0',
-    description='download and preprocess popular bike sharing trip data',
+    description='download and preprocess popular bike sharing trips data',
     packages=find_packages(),
     author='P. Samuel Njiki',
     license='MIT License',

@@ -29,8 +29,8 @@ if __name__ == "__main__":
     url_list = href_from_url(args['search_url'], search_config(**args['search_dict']))
     
     logger.info(f'url_list: {url_list}')
-    """
+    
     mytrip = Trip(args['data_dir'])
     for url in url_list:
         mytrip.run(url, src=args['source'])
-    """
+    
