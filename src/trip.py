@@ -105,7 +105,7 @@ class Trip():
         write down the result.
         """
         # merge stations ad trips
-        if stations_df:
+        if stations_df is not None:
             df = self.station_trip_join(stations_df, df, rename_dict)
                 
         # add datetime elements
@@ -149,7 +149,7 @@ class Trip():
                     for chunk in ds:
                         self.process(
                             stations_df=stations_df,
-                            trip_df=chunk, 
+                            df=chunk, 
                             rename_dict=rename_dict,
                             save_dir=save_dir, 
                             save_name=f'trip_{i}_{j}.csv')
@@ -158,7 +158,7 @@ class Trip():
             for i, ds in enumerate(trip_dfs):
                 self.process(
                     stations_df=stations_df,
-                    trip_df=ds, 
+                    df=ds, 
                     rename_dict=rename_dict,
                     save_dir=save_dir, 
                     save_name=f'trip_{i}.csv')
