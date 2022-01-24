@@ -2,7 +2,7 @@
 bs4
 holidays
 numpy
-pandas
+pandas>=1.2.0
 requests
 
 # test requirements

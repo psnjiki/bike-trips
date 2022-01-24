@@ -31,6 +31,12 @@ if __name__ == "__main__":
     logger.info(f'url_list: {url_list}')
     
     mytrip = Trip(args['data_dir'])
+    
+    if 'chunksize' in args:
+        chunksize = args['chunksize']
+    else:
+        chunksize = None
+
     for url in url_list:
-        mytrip.run(url, src=args['source'])
+        mytrip.run(url, src=args['source'], chunksize=chunksize)
     

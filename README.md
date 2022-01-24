@@ -4,7 +4,7 @@
 This package collects and preprocess historical trip data from major bike sharing companies in Canada (currently available for bixi-montreal only):
 - if needed stations and trips data are merged 
 - upcoming and past holidays features are added as well
-- datetime columns (start and end of trip ) are broken down into elementary components: i.e. year month, hour sec...
+- datetime columns (start and end of trip ) are broken down into elementary components: i.e. year, month, hour, sec...
 
 
 To process files use the command:
