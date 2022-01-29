@@ -54,9 +54,9 @@ def search_config(**kwargs):
     """wrapper for html search criteria"""
     config = {}
     if 'text' in kwargs:
-        config['text']= re.compile(str(kwargs.pop('text')))
+        config['text'] = re.compile(str(kwargs.pop('text')))
     if 'name' in kwargs:
-        config['name']= kwargs.pop('name')
+        config['name'] = kwargs.pop('name')
     config['attrs'] = kwargs    
     return config
 
