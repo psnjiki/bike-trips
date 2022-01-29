@@ -1,0 +1,12 @@
+# package runtime requirements
+bs4
+holidays
+numpy
+pandas>=1.2.0
+requests
+
+# test requirements
+
+# deployment
+pip>=19.2.3
+wheel>=0.33.6

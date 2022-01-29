@@ -13,7 +13,7 @@ import re
 
 def walk_dir(directory):
     """
-    list recrsively all files in directory
+    list recursively all files in directory
     """
     files_list = []
     for path, _, files in os.walk(directory):
@@ -31,10 +31,8 @@ def dist_to_holiday(date, holidays, direction='next'):
             day = holidays.get(date + timedelta(days=n))
         elif direction == 'previous':
             day = holidays.get(date + timedelta(days=-n))   
-        #hday = holidays.get(date)
-        #if hday is None: hday=''
         if day:
-            return n, day #, hday
+            return n, day
 
 def get_calendar_holidays(dt_series, holidays):
     """
@@ -56,9 +54,9 @@ def search_config(**kwargs):
     """wrapper for html search criteria"""
     config = {}
     if 'text' in kwargs:
-        config['text']= re.compile(str(kwargs.pop('text')))
+        config['text'] = re.compile(str(kwargs.pop('text')))
     if 'name' in kwargs:
-        config['name']= kwargs.pop('name')
+        config['name'] = kwargs.pop('name')
     config['attrs'] = kwargs    
     return config
 
