@@ -11,7 +11,7 @@ To collect the files use the command:
 ```
 python main.py --config=path/to/config.json --bike-sys=bike_system
 ```
-
+--bike-sys expects a tag for the bike sharing company. The complete lis is available in BIKESYS.md.
 --config expects a path to a json file. The content  of the json file should look like this:
 ```
 {"years": "2020", "data_dir": "./data", "chunk_size": 400000}

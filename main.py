@@ -3,11 +3,8 @@ main module. runs the job.
 
 main.py --config=config.json --bike-sys=bixi
 
-available tags and their bike system tags:
-    - bixi -> Bixi Montreal
-    - bsto-> Bike sharing Toronto
-    - 
-    
+see BIKESYS.md for the list of available tags with the corresponding bike system tags. 
+
 """
 import os
 import json
