@@ -37,7 +37,7 @@ with open('path/to/config.json', 'w') as f:
     json.dump(args, f)
 ```
 
-If you have the url to trip files, you may process it this way:
+If you have urls to trip files, you may process them this way:
 
 ```python
 from biketrips.bikesystem import selector
