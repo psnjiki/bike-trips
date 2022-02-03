@@ -1,70 +1,47 @@
 
 ## BIKE TRIPS 
 
-This package collects and preprocess historical trip data from major bike sharing companies in Canada (currently available for bixi-montreal only):
+Collect historical trip data from major bike sharing companies:
 - if needed stations and trips data are merged 
 - upcoming and past holidays features are added as well
-- datetime columns (start and end of trip ) are broken down into elementary components: i.e. year, month, hour, sec...
+- datetime columns (start and end of trip ) are broken down into elementary components: 
+    i.e. year, month, hour, sec...
 
-To process files use the command:
+To collect the files use the command:
 ```
-python main.py --config="./config.json"
-```
-
---config expects a path to a json file. The content should look like this:
-```
-{
-    "source": "bixi",
-    "search_url": "https://bixi.com/en/open-data",
-    "data_dir": "./data",
-    "search_dict": {"class":"document-csv col-md-2 col-sm-4 col-xs-12"} ,
-    "chunksize": 500000
-}
+python main.py --config=path/to/config.json --bike-sys=bike_system
 ```
 
-- source argument is a tag for the bike system.
-- search_url is the url to webpage containing the public dataset.
-- data_dir is the directory where to store the data.
-- use search_dict argument to set additional criteria to identify which documents to download from webpage.
-- chunksize (optional) allows to control the memory by processing the data by chunks.
-    do not include this argument in config if you don't need it.
+--config expects a path to a json file. The content  of the json file should look like this:
+```
+{"years": "2020", "data_dir": "./data", "chunk_size": 400000}
 
+```
+
+- *years* is a query specifying which years should be downloaded. 
+    (ex. "2020", "2020, 2021", "2019-2021", "2017, 2019-2021")
+- *data_dir* is the directory where to store the data. defaults to "./"
+- *chunksize* (optional) allows to control the memory by processing the data by chunks.
+- all these arguments are optional. Do not include an argument in config if you don't need it.
 ex: get all bixi's historical data
-```python
-"search_dict": {"class":"document-csv col-md-2 col-sm-4 col-xs-12"}
-```
 
-ex: get all bixi's data from year 2016
-    
-```python
-"search_dict": {"text":"2016", "class":"document-csv col-md-2 col-sm-4 col-xs-12"}
-```
-Note this will download only data that does not already exists in the directory. 
-
+This downloads only data that does not already exists in the directory. 
 
 Easily configure your own config file:
 
 ```python
-args = {
-    "search_url": "https://bixi.com/en/open-data",
-    "source": "bixi",
-    "search_dict": {"text":2016, "class":"document-csv col-md-2 col-sm-4 col-xs-12"},
-    "data_dir": "./data"
-}
+args = {"years": "2020", "data_dir": "./data", "chunk_size": 400000}
 
 import json
 with open('path/to/config.json', 'w') as f:
     json.dump(args, f)
 ```
 
-Also if you know the url to the trip file, process it this way:
+If you have urls to trip files, you may process them this way:
 
 ```python
-from src.trip import Trip
-
+from biketrips.bikesystem import selector
+args = {"data_dir": "./data", "bike_sys": "bixi"}
 trip_url = 'https://sitewebbixi.s3.amazonaws.com/uploads/docs/biximontreal-rentals-2021-07-805a45.zip'
-data_dir = '.'
-
-Trip(data_dir).run(trip_url, src='bixi')
-
+selector(args).run(url_list=[trip_url])
 ```
