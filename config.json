@@ -1,1 +1,1 @@
-{"search_url": "https://bixi.com/en/open-data", "source": "bixi", "data_dir": "./data", "search_dict": {"class": "document-csv col-md-2 col-sm-4 col-xs-12"}, "chunksize": 400000}
+{"years": "2016", "data_dir": "./data", "chunk_size": 400000}
