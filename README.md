@@ -25,7 +25,6 @@ python main.py --config=path/to/config.json --bike-sys=bike_system
 - all these arguments are optional. Do not include an argument in config if you don't need it.
 
 Easily configure your own config file:
-
 ```python
 args = {"years": "2020", "data_dir": "./data", "chunk_size": 400000}
 
