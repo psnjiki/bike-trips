@@ -71,14 +71,17 @@ class Trip(ABC):
             os.makedirs(save_dir)
             with open(file_path, 'wb') as file:
                 file.write(requests.get(url).content)
-            if '.zip' in file_name:
+            if file_name.split('.')[-1] == 'zip':
                 with ZipFile(file_path, 'r') as zip_file:
                     zip_file.extractall(path=save_dir)
                 os.remove(file_path)
-            else:
+            elif file_name.split('.')[-1] == 'csv':
                 with open(file_path, 'wb') as file:
                     data = requests.get(url).content
                     file.write(data)
+            else:
+                logger.info('skip unsupported extension: {}'.format(file_name.split('.')[-1]))
+                return None
         else:
             print('directory already exist')
             return None
