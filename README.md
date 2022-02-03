@@ -23,9 +23,6 @@ python main.py --config=path/to/config.json --bike-sys=bike_system
 - *data_dir* is the directory where to store the data. defaults to "./"
 - *chunksize* (optional) allows to control the memory by processing the data by chunks.
 - all these arguments are optional. Do not include an argument in config if you don't need it.
-ex: get all bixi's historical data
-
-This downloads only data that does not already exists in the directory. 
 
 Easily configure your own config file:
 
