@@ -125,11 +125,24 @@ class Trip(ABC):
         download files from url then load as pandas df
         """
 
-    @abstractmethod
     def station_trip_join(self, stations_df, trip_df):
         """
-        merge trip data and stations
+        merge trip data and stations - place holder.
         """
+        # merge stations and trips
+        merged_df = trip_df.merge(
+            stations_df,
+            how='left',
+            left_on='start_station_code',
+            right_on='code').drop('code', axis=1)
+
+        merged_df = merged_df.merge(
+            stations_df,
+            how='left',
+            left_on='end_station_code',
+            right_on='code',
+            suffixes=('', '_end')).drop('code', axis=1)
+        return merged_df
 
     def run_url(self, url, rename_dict, holidays, chunksize):
         """
