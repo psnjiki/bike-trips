@@ -87,6 +87,14 @@ def text_from_doc_list(doc_list):
     """
     return [doc.text for doc in doc_list]
 
+def docs_from_url(url, search_cfg):
+    """
+    extract html elements from url satisfying  a config dict.
+    """
+    data = requests.get(url).text
+    docs = BeautifulSoup(data, "lxml").find_all(**search_cfg)
+    return docs
+
 def href_from_url(url, search_cfg):
     """
     extract hyperlinks from web page.
@@ -128,8 +136,21 @@ def years_query(query):
 
 def is_in_path(file_path, find_str):
     """
-    check if find_tr is in filename given file path
+    check if find_str is in filename given file path
     """
     file_path = file_path.lower()
     find_str = find_str.lower()
     return file_path.split('/')[-1].find(find_str) >= 0
+
+def format_column_names(df):
+    """
+    standardize  pandas df columns names.
+    """
+    def reformat(txt):
+        txt = txt.lower()
+        txt = txt.replace(' ', '_')
+        txt = txt.replace('-', '_')
+        txt = txt.replace('.', '_')
+        return txt
+    columns = {col: reformat(col) for col in df.columns}
+    df.rename(columns, axis=1, inplace=True)
