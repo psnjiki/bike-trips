@@ -1,15 +1,17 @@
 """
 bike system tags and selector
 """
-from biketrips.bixi import Bixi
-from biketrips.bsto import Bsto
+from biketrips import operators as ops
+
 
 def selector(args):
     """
     select relevant class given bike system
     """
     if args['bike_sys'] == 'bixi':
-        trip = Bixi(args)
+        trip = ops.bixi.Bixi(args)
     if args['bike_sys'] == 'bsto':
-        trip = Bsto(args)
+        trip = ops.bsto.Bsto(args)
+    if args['bike_sys'] == 'cabi':
+        trip = ops.cabi.Cabi(args)
     return trip

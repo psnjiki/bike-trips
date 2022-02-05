@@ -10,11 +10,13 @@ from zipfile import ZipFile
 import pandas as pd
 import requests
 
+from biketrips.utils import docs_from_url
+from biketrips.utils import format_column_names
 from biketrips.utils import get_calendar_holidays
 from biketrips.utils import walk_dir
 
-
 logger = logging.getLogger(__name__)
+
 
 class Trip(ABC):
     """
@@ -34,6 +36,16 @@ class Trip(ABC):
                 if url.find(str(year)) >= 0:
                     res.append(url)
         return res
+
+    @staticmethod
+    def get_url_list(url, search_cfg, attr=None, tag='href', prefix=''):
+        docs = docs_from_url(url, search_cfg)
+        url_list = []
+        if attr:
+            url_list = [getattr(doc, attr) for doc in docs]
+        elif tag:
+            url_list = [doc.get(tag) for doc in docs]
+        return [os.path.join(prefix, url) for url in url_list]
 
     @staticmethod
     def break_datetime(data, columns):
@@ -87,6 +99,7 @@ class Trip(ABC):
             return None
 
         files = walk_dir(save_dir)
+        #files = [file for file in files if file.find('.csv') > 0]
         return save_dir, files
 
     def process(self, stations_df, trip_df, rename_dict, save_dir, save_name, holidays):
@@ -96,10 +109,12 @@ class Trip(ABC):
         write down the result.
         """
         # standardize column names
+        format_column_names(trip_df)
         trip_df.rename(rename_dict, axis=1, inplace=True)
 
         # merge stations ad trips
         if stations_df is not None:
+            format_column_names(stations_df)
             stations_df.rename(rename_dict, axis=1, inplace=True)
             trip_df = self.station_trip_join(stations_df, trip_df)
 
@@ -159,10 +174,10 @@ class Trip(ABC):
 
             #TODO: parallelize this loop
             if chunksize:
-                for i, chung_gen in enumerate(trip_dfs):
-                    with chung_gen:
+                for i, chunk_gen in enumerate(trip_dfs):
+                    with chunk_gen:
                         j = 0
-                        for chunk in chung_gen:
+                        for chunk in chunk_gen:
                             self.process(
                                 stations_df=stations_df,
                                 trip_df=chunk,

@@ -92,8 +92,14 @@ class Bixi(Trip):
             state=STATE)
 
         search_cfg = search_config(**SEARCH_DICT)
-        if url_list is None:            
-            url_list = href_from_url(SEARCH_URL, search_cfg)
+
+        if url_list is None:
+            url_list = self.get_url_list(
+                url=SEARCH_URL,
+                search_cfg=search_cfg,
+                attr=None,
+                tag='href',
+                prefix='')
             url_list = self.href_filter(url_list, self.years_list)
             
         logger.info('url_list: {}'.format(url_list))
