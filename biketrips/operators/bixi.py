@@ -8,9 +8,9 @@ import holidays as hld
 
 from biketrips.utils import years_query
 from biketrips.utils import is_in_path
-from biketrips.utils import href_from_url
 from biketrips.utils import search_config
 from biketrips.loader import Trip
+from biketrips.loader import RENAME_DICT
 
 
 SEARCH_URL = 'https://bixi.com/en/open-data'
@@ -18,10 +18,7 @@ SEARCH_DICT = {"class": "document-csv col-md-2 col-sm-4 col-xs-12"}
 COUNTRY = 'CA'
 PROV = 'QC'
 STATE = None
-RENAME_DICT = {
-    'emplacement_pk_start': 'start_station_code',
-    'emplacement_pk_end': 'end_station_code',
-    'pk': 'code'}
+
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +29,7 @@ class Bixi(Trip):
     """
     def __init__(self, args):
         super(Bixi, self).__init__(args['data_dir'])
+        self.rename_dict = RENAME_DICT
         if 'chunk_size' in args:
             self.chunksize = args['chunk_size']
         else:
@@ -106,6 +104,6 @@ class Bixi(Trip):
         for url in url_list:
             self.run_url(
                 url=url,
-                rename_dict=RENAME_DICT,
+                rename_dict=self.rename_dict,
                 holidays=hdays,
                 chunksize=self.chunksize)

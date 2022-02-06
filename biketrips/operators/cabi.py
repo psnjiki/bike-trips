@@ -1,6 +1,6 @@
 """
 A module containing tools to download and process trips data
-from mobi bike Vancouver
+from capital bike share Washington DC
 """
 import logging
 import pandas as pd
@@ -9,6 +9,7 @@ import holidays as hld
 from biketrips.utils import years_query
 from biketrips.utils import search_config
 from biketrips.loader import Trip
+from biketrips.loader import RENAME_DICT
 
 
 SEARCH_URL = 'https://s3.amazonaws.com/capitalbikeshare-data'
@@ -16,18 +17,6 @@ SEARCH_DICT = {"name": "key"}
 COUNTRY = 'US'
 PROV = None
 STATE = 'DC'
-RENAME_DICT = {
-    'start_station_id': 'start_station_code',
-    'started_at': 'start_date',
-    'start_station_name': 'name',
-    'ended_at': 'end_date',
-    'end_station_id': 'end_station_code',
-    'end_station_name': 'end_name',
-    'start_station_number': 'start_station_code',
-    'end_station_number': 'end_station_code',
-    'start_station': 'name',
-    'end_station': 'end_name',
-    }
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +28,7 @@ class Cabi(Trip):
     """
     def __init__(self, args):
         super(Cabi, self).__init__(args['data_dir'])
+        self.rename_dict = RENAME_DICT
         if 'chunk_size' in args:
             self.chunksize = args['chunk_size']
         else:
@@ -86,6 +76,6 @@ class Cabi(Trip):
         for url in url_list:
             self.run_url(
                 url=url,
-                rename_dict=RENAME_DICT,
+                rename_dict=self.rename_dict,
                 holidays=hdays,
                 chunksize=self.chunksize)
