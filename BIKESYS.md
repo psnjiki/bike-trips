@@ -7,3 +7,4 @@
 
 *cabi* --> [capital bike share Washington, DC](https://www.capitalbikeshare.com)
 
+*citi* --> [citi bike New york and Jersey city](https://ride.citibikenyc.com/)

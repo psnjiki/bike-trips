@@ -17,6 +17,34 @@ from biketrips.utils import walk_dir
 
 logger = logging.getLogger(__name__)
 
+RENAME_DICT = {
+    'start_station_id': 'start_station_code',
+    'started_at': 'start_date',
+    'start_station_name': 'name',
+    'ended_at': 'end_date',
+    'end_station_id': 'end_station_code',
+    'end_station_name': 'end_name',
+    'start_station_number': 'start_station_code',
+    'end_station_number': 'end_station_code',
+    'start_station': 'name',
+    'end_station': 'end_name',
+    'from_station_id': 'start_station_code',
+    'trip_start_time': 'start_date',
+    'from_station_name': 'name',
+    'trip_stop_time': 'end_date',
+    'to_station_id': 'end_station_code',
+    'to_station_name': 'end_name',
+    'emplacement_pk_start': 'start_station_code',
+    'emplacement_pk_end': 'end_station_code',
+    'pk': 'code',    
+    'starttime': 'start_date',
+    'stoptime': 'end_date',
+    'start_station_id': 'start_station_code',
+    'end_station_id': 'end_station_code',
+    'start_station_name': 'name',
+    'end_station_name': 'end_name',
+    }
+
 
 class Trip(ABC):
     """

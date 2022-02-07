@@ -7,9 +7,9 @@ import pandas as pd
 import holidays as hld
 
 from biketrips.utils import years_query
-from biketrips.utils import href_from_url
 from biketrips.utils import search_config
 from biketrips.loader import Trip
+from biketrips.loader import RENAME_DICT
 
 
 SEARCH_URL = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/tr/dataset/bike-share-toronto-ridership-data'
@@ -17,14 +17,6 @@ SEARCH_DICT = {"class": "resource-url-analytics"}
 COUNTRY = 'CA'
 PROV = 'ON'
 STATE = None
-RENAME_DICT = {
-    'from_station_id': 'start_station_code',
-    'trip_start_time': 'start_date',
-    'from_station_name': 'name',
-    'trip_stop_time': 'end_date',
-    'to_station_id': 'end_station_code',
-    'to_station_name': 'end_name'
-    }
 
 
 logger = logging.getLogger(__name__)
@@ -36,6 +28,7 @@ class Bsto(Trip):
     """
     def __init__(self, args):
         super(Bsto, self).__init__(args['data_dir'])
+        self.rename_dict = RENAME_DICT
         if 'chunk_size' in args:
             self.chunksize = args['chunk_size']
         else:
@@ -86,6 +79,6 @@ class Bsto(Trip):
         for url in url_list:
             self.run_url(
                 url=url,
-                rename_dict=RENAME_DICT,
+                rename_dict=self.rename_dict,
                 holidays=hdays,
                 chunksize=self.chunksize)

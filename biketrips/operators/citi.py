@@ -1,6 +1,6 @@
 """
 A module containing tools to download and process trips data
-from capital bike share Washington DC
+from citi bike New York
 """
 import logging
 import pandas as pd
@@ -12,22 +12,22 @@ from biketrips.loader import Trip
 from biketrips.loader import RENAME_DICT
 
 
-SEARCH_URL = 'https://s3.amazonaws.com/capitalbikeshare-data'
+SEARCH_URL = 'https://s3.amazonaws.com/tripdata'
 SEARCH_DICT = {"name": "key"}
 COUNTRY = 'US'
 PROV = None
-STATE = 'DC'
+STATE = 'NY'
 
 logger = logging.getLogger(__name__)
 
 
-class Cabi(Trip):
+class Citi(Trip):
     """
     A class to download and process trips historical data
     from bikesharing system Bixi
     """
     def __init__(self, args):
-        super(Cabi, self).__init__(args['data_dir'])
+        super(Citi, self).__init__(args['data_dir'])
         self.rename_dict = RENAME_DICT
         if 'chunk_size' in args:
             self.chunksize = args['chunk_size']
